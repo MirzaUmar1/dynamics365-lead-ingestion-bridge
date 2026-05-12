@@ -7,6 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from the current directory
+app.use(express.static(__dirname));
+
 // 1. GET THE SECURITY TOKEN
 async function getAccessToken() {
   const url = `https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/v2.0/token`;
@@ -64,6 +67,7 @@ app.post("/api/submit-lead", async (req, res) => {
   }
 });
 
-app.listen(3000, () =>
-  console.log("🚀 Bridge running at http://localhost:3000"),
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on port ${PORT}`),
 );
