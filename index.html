@@ -253,7 +253,7 @@
             showToast("Success! Contact Created.", "success");
             document.getElementById("leadForm").reset();
           } else {
-            showToast("Error: " + result.error, "error");
+            showToast("Error: " + (result.details || result.error), "error");
           }
         } catch (err) {
           showToast("Network error occurred.", "error");
