@@ -34,9 +34,9 @@ app.post("/api/submit-lead", async (req, res) => {
       address1_stateorprovince: req.body.address1_stateorprovince,
       address1_postalcode: req.body.address1_postalcode,
       telephone2: req.body.telephone2,
-      birthdate: req.body.birthdate, // Format: YYYY-MM-DD
+      age: req.body.age, // Passing age instead of birthdate
       newdyn_prospectsource: 405670021, // Hardcoded from your image
-      description: req.body.description || "Lead from Web Form",
+      description: req.body.comments || "Lead from Web Form",
     };
 
     const response = await axios.post(

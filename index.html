@@ -1,92 +1,267 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium CRM Lead Form</title>
     <style>
-      body {
-        font-family: sans-serif;
-        max-width: 400px;
-        margin: 20px auto;
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        color: #f8fafc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .glass-container {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 40px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        background: linear-gradient(to right, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 15px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #cbd5e1;
+      }
+
       input,
       textarea {
         width: 100%;
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        padding: 12px 16px;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: #f8fafc;
+        font-size: 15px;
+        font-family: inherit;
+        transition: all 0.3s ease;
       }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #64748b;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #38bdf8;
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
       button {
         width: 100%;
-        padding: 10px;
-        background: #28a745;
+        padding: 14px;
+        margin-top: 10px;
+        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
         color: white;
         border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      /* Notification Toast */
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 12px;
+        color: white;
+        font-weight: 500;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        z-index: 1000;
+      }
+
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .toast.success {
+        background: rgba(16, 185, 129, 0.9);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+
+      .toast.error {
+        background: rgba(239, 68, 68, 0.9);
+        border: 1px solid rgba(239, 68, 68, 0.2);
       }
     </style>
   </head>
   <body>
-    <h2>CRM Lead Form</h2>
-    <form id="leadForm">
-      <input type="text" id="firstname" placeholder="First Name" required />
-      <input type="text" id="lastname" placeholder="Last Name" required />
-      <input type="text" id="address1_line1" placeholder="Address" />
-      <input type="text" id="address1_city" placeholder="City" />
-      <input
-        type="text"
-        id="address1_stateorprovince"
-        placeholder="State (e.g. MA)"
-      />
-      <input type="text" id="address1_postalcode" placeholder="Postal Code" />
-      <input
-        type="tel"
-        id="telephone2"
-        placeholder="Phone Number (telephone2)"
-      />
-      <label>Birthdate:</label>
-      <input type="date" id="birthdate" />
-      <textarea id="description" placeholder="Description"></textarea>
-      <button type="submit">Submit to CRM</button>
-    </form>
+    <div class="glass-container">
+      <h2>Contact Registration</h2>
+      <form id="leadForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" placeholder="Doe" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address1_line1">Street Address</label>
+          <input type="text" id="address1_line1" placeholder="123 Main St" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="address1_city">City</label>
+            <input type="text" id="address1_city" placeholder="Boston" />
+          </div>
+          <div class="form-group">
+            <label for="address1_stateorprovince">State</label>
+            <input type="text" id="address1_stateorprovince" placeholder="MA" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="address1_postalcode">Postal Code</label>
+            <input type="text" id="address1_postalcode" placeholder="02101" />
+          </div>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" placeholder="25" min="1" max="120" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telephone2">Phone Number</label>
+          <input type="tel" id="telephone2" placeholder="+1 (555) 000-0000" />
+        </div>
+
+        <div class="form-group">
+          <label for="comments">Comments</label>
+          <textarea id="comments" placeholder="How can we help you?"></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn">Submit Registration</button>
+      </form>
+    </div>
+
+    <div id="toast" class="toast"></div>
 
     <script>
-      document
-        .getElementById("leadForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+      function showToast(message, type) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = `toast show ${type}`;
+        setTimeout(() => {
+          toast.className = "toast";
+        }, 4000);
+      }
 
-          // Collect all fields
-          const data = {
-            firstname: document.getElementById("firstname").value,
-            lastname: document.getElementById("lastname").value,
-            address1_line1: document.getElementById("address1_line1").value,
-            address1_city: document.getElementById("address1_city").value,
-            address1_stateorprovince: document.getElementById(
-              "address1_stateorprovince",
-            ).value,
-            address1_postalcode: document.getElementById("address1_postalcode")
-              .value,
-            telephone2: document.getElementById("telephone2").value,
-            birthdate: document.getElementById("birthdate").value,
-            description: document.getElementById("description").value,
-          };
+      document.getElementById("leadForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.textContent = "Submitting...";
+        submitBtn.style.opacity = "0.7";
+        submitBtn.disabled = true;
 
-          const response = await fetch(
-            "http://localhost:3000/api/submit-lead",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            },
-          );
+        const data = {
+          firstname: document.getElementById("firstname").value,
+          lastname: document.getElementById("lastname").value,
+          address1_line1: document.getElementById("address1_line1").value,
+          address1_city: document.getElementById("address1_city").value,
+          address1_stateorprovince: document.getElementById("address1_stateorprovince").value,
+          address1_postalcode: document.getElementById("address1_postalcode").value,
+          telephone2: document.getElementById("telephone2").value,
+          age: parseInt(document.getElementById("age").value) || null,
+          comments: document.getElementById("comments").value,
+        };
+
+        try {
+          const response = await fetch("http://localhost:3000/api/submit-lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
 
           const result = await response.json();
           if (result.success) {
-            alert("Success! Contact Created in Dynamics 365.");
+            showToast("Success! Contact Created.", "success");
+            document.getElementById("leadForm").reset();
           } else {
-            alert("Error: " + result.error);
+            showToast("Error: " + result.error, "error");
           }
-        });
+        } catch (err) {
+          showToast("Network error occurred.", "error");
+        } finally {
+          submitBtn.textContent = "Submit Registration";
+          submitBtn.style.opacity = "1";
+          submitBtn.disabled = false;
+        }
+      });
     </script>
   </body>
 </html>
