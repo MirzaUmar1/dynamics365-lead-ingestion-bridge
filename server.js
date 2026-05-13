@@ -63,7 +63,7 @@ app.post("/api/submit-lead", async (req, res) => {
       });
   } catch (error) {
     console.error("CRM Error:", error.response?.data || error.message);
-    const errorDetails = error.response?.data?.error?.message || error.message;
+    const errorDetails = error.response?.data ? JSON.stringify(error.response.data) : error.message;
     res.status(500).json({ success: false, error: "Failed to push to CRM.", details: errorDetails });
   }
 });
