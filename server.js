@@ -37,7 +37,7 @@ app.post("/api/submit-lead", async (req, res) => {
       address1_stateorprovince: req.body.address1_stateorprovince,
       address1_postalcode: req.body.address1_postalcode,
       telephone2: req.body.telephone2,
-      age: req.body.age, // Passing age instead of birthdate
+      birthdate: req.body.birthdate, // Format: YYYY-MM-DD
       newdyn_prospectsource: 405670021, // Hardcoded from your image
       description: req.body.comments || "Lead from Web Form",
     };
