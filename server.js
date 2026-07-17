@@ -38,7 +38,7 @@ app.post("/api/submit-lead", async (req, res) => {
       address1_postalcode: req.body.address1_postalcode,
       telephone2: req.body.telephone2,
       birthdate: req.body.birthdate, // Format: YYYY-MM-DD
-      newdyn_prospectsource: req.body.prospectSource,
+      newdyn_prospectsource: parseInt(req.body.prospectSource, 10),
       description: req.body.comments || "Lead from Web Form",
     };
 
@@ -62,7 +62,12 @@ app.post("/api/submit-lead", async (req, res) => {
         id: response.data.contactid,
       });
   } catch (error) {
-    console.error("CRM Error:", error.response?.data || error.message);
+    if (error.response) {
+      console.error("CRM Error Status:", error.response.status);
+      console.error("CRM Error Data:", JSON.stringify(error.response.data));
+    } else {
+      console.error("CRM Error Message:", error.message);
+    }
     const errorDetails = error.response?.data ? JSON.stringify(error.response.data) : error.message;
     res.status(500).json({ success: false, error: "Failed to push to CRM.", details: errorDetails });
   }
