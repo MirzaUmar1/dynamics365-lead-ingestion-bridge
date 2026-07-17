@@ -42,6 +42,8 @@ app.post("/api/submit-lead", async (req, res) => {
       description: req.body.comments || "Lead from Web Form",
     };
 
+    console.log("Sending payload to Dynamics 365:", JSON.stringify(crmPayload));
+
     const response = await axios.post(
       `${process.env.CRM_URL}/api/data/v9.2/contacts`,
       crmPayload,
